@@ -1,0 +1,48 @@
+<form id="frmLivro" name="frmLivro">
+    <div class="col-md-12" ng-init="carregarListagem()">
+        <div class="col-md-6 col-md-offset-3">
+            <input type="text" class="form-control" id="txtPesquisa" ng-model="pesquisa" placeholder="Pesquise por qualquer campo"
+                   ng-model="opiniao.observacao" required autofocus>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div ng-init="carregarListagem()">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-1">
+                        <a ng-click="definirOrdenacao('estadoConservacao')" id="estadoConservacaoLnk">
+                            Conservação<span ng-if="verificacaoOrdenacao === 'estadoConservacao'">{{simboloOrdenacao}}</span>
+                        </a>
+                    </th>
+                    <th class="col-md-1">
+                        <a ng-click="definirOrdenacao('nota')" id="notasLnk">
+                            notas<span ng-if="verificacaoOrdenacao === 'nota'">{{simboloOrdenacao}}</span>
+                        </a>
+                    </th>
+                    <th class="col-md-10">
+                        <a ng-click="definirOrdenacao('observacao')" id="observacaoLnk">
+                            Observações<span ng-if="verificacaoOrdenacao === 'observacao'">{{simboloOrdenacao}}</span>
+                        </a>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="o in opinioes.slice(inicio, fim) | orderBy : ordenacao | filter : pesquisa">
+                    <td id="estadoConservacao{{o._id}}" class="col-md-2">{{o.estadoConservacao}}</td>
+                    <td id="nota{{o._id}}" class="col-md-2">{{o.nota}}</td>
+                    <td id="lblObservacao{{o._id}}"class="col-md-8">{{o.observacao}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="opinioes.length !== 0" class="col-md-offset-4">
+                <button type="button" class="btn btn-default" ng-click="primeiro()" ng-disabled="inicio === 0">primeiro</button>
+                <button type="button" class="btn btn-default" ng-click="anterior()" ng-disabled="inicio === 0">anterior</button>
+                <button type="button" class="btn btn-default" ng-click="proximo()" ng-disabled="fim >= opinioes.length">próximo</button>
+                <button type="button" class="btn btn-default" ng-click="ultimo()" ng-disabled="fim >= opinioes.length">último</button>
+            </div>
+        </div>
+    </div>
+
+</form>

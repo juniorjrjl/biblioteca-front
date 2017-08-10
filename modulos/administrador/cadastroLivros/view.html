@@ -1,0 +1,51 @@
+<form id="frmLivro" name="frmLivro">
+    <div class="col-lg-6 col-lg-offset-3">
+        <fieldset class="form-group">
+            <label for="txtNome">Nome</label>
+            <br>
+            <input type="text" class="form-control" id="txtNome" placeholder="Digite o nome do livro" ng-model="livro.nome" required autofocus>
+        </fieldset>
+        <button class="btn btn-primary btn-lg" ng-click="cadastrar(livro)" id="btnCadastrar" ng-disabled="!livro.nome">
+            Cadastrar
+        </button>
+    </div>
+
+    <div class="col-md-8 col-md-offset-2" ng-init="carregarListagem()">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Operações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="l in livros track by $index">
+                <td id="lblNome{{l._id}}">{{l.nome}}</td>
+                <td id="operacoes{{l._id}}">
+                    <button ng-click="Excluir(l._id)" type="button" class="btn btn-default" ng-disabled="atualizacao">
+                        Excluir
+                    </button>
+                    <button ng-click="Atualizar(l._id)" type="button" class="btn btn-default" ng-disabled="atualizacao">
+                        Atualizar
+                    </button>
+                </td>
+
+                <td id="txtNome{{l._id}}" class="ocultar">
+                    <input required type="text" class="form-control" placeholder="Informe o nome do livro" name="txtDescricao{{l._id}}"
+                           ng-model="l.nome">
+                </td>
+                <td id="edicao{{l._id}}" class="ocultar">
+                    <button ng-click="ConfirmarAtualizacao(l._id)" type="button" class="btn btn-default"
+                            ng-disabled="!livros[$index].nome">
+                        Salvar
+                    </button>
+                    <button ng-click="CancelarAtualizacao(l._id)" type="button" class="btn btn-default">
+                        Cancelar
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</form>

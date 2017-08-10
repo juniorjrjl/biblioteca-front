@@ -1,0 +1,78 @@
+<form id="frmOpiniao" name="frmOpiniao">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="alert alert-success ocultar" id="divMensagemSucesso" role="alert">
+            Obrigado por enviar sua opinião, volte sempre.
+            <br>
+            <a href="#/usuario/comentarios" class="alert-link">Enviar outra opinião</a>
+        </div>
+
+        <div class="alert alert-warning ocultar" role="alert" id="divAlerta">
+            Você já comentou sobre todos os nossos livros, por favor espere nosso acervo receber novidades.
+            <br>
+            <a href="#/usuario/comentarios" class="alert-link">Enviar outra opinião</a>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-lg-offset-3">
+        <fieldset class="form-group">
+            <label for="txtNome">Nome</label>
+            <br>
+            <input type="text" class="form-control" id="txtNome" placeholder="Digite seu nome" ng-model="usuario.nome" required autofocus>
+            <input type="hidden" id="hdnId" ng-model="usuario._id">
+        </fieldset>
+    </div>
+
+    <div class="col-lg-6 col-lg-offset-3">
+    <fieldset class="form-group ocultar" id="fdsLivro">
+        <label for="cbmLivro">Livro</label>
+        <br>
+        <select id="cbmLivro" class="form-control" ng-model="livroSelecionado" ng-options="l.nome for l in livros" ng-change="setIdLivro()">
+            <option style="display: none;" value="">Selecione um livro</option>
+        </select>
+    </fieldset>
+    </div>
+
+    <div class="col-lg-6 col-lg-offset-3">
+        <fieldset class="form-group ocultar" id="fdsEstadoConservacao">
+            <label for="cmbEstadoConservacao">Estado de conservação</label>
+            <br>
+            <select id="cmbEstadoConservacao" class="form-control" ng-model="estadoConservacaoSelecionado">
+                <option style="display: none;" value="">Estado de conservação do livro</option>
+                <option value="Ótimo">Ótimo</option>
+                <option value="Bom">Bom</option>
+                <option value="Regular">Regular</option>
+                <option value="Ruim">Ruim</option>
+            </select>
+        </fieldset>
+    </div>
+
+    <div class="col-lg-6 col-lg-offset-3">
+        <fieldset class="form-group ocultar" id="fdsAvaliacao">
+            <label for="txtAvaliacao">Nota</label>
+            <br>
+            <input type="text" id="txtAvaliacao" name="txtAvaliacao" class="form-control" min="0" max="10"
+                   ng-model="opiniao.nota" ng-pattern="/^([0-9]|10)$/" ng-required="requireNota"/>
+        </fieldset>
+    </div>
+
+    <div class="col-lg-6 col-lg-offset-3">
+        <fieldset class="form-group ocultar" id="fdsObservacao">
+            <label for="txtObservacoes">Observações</label>
+            <br>
+                <textarea id="txtObservacoes" rows="4" cols="50" maxlength="256"
+                          placeholder="Conte-nos sobre o que você achou deste livro" ng-model="opiniao.observacao">
+            </textarea>
+        </fieldset>
+    </div>
+    <div class="col-lg-6 col-lg-offset-3" id="divBotao">
+        <button class="btn btn-primary btn-lg" ng-click="cadastrar(usuario)" id="btnCadastrar" ng-disabled="!usuario.nome">
+            Cadastrar
+        </button>
+
+        <button class="btn btn-primary btn-lg ocultar" ng-click="enviarOpiniao(opiniao)" id="btnEnviarOpiniao"
+                ng-disabled="(! estadoConservacaoSelecionado) || (!livroSelecionado) ||(frmOpiniao.txtAvaliacao.$error.max)
+                || (frmOpiniao.txtAvaliacao.$error.min) ||(!opiniao.nota) ||(desabilitado)">
+            Enviar opinião
+        </button>
+    </div>
+</form>
